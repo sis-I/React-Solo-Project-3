@@ -1,0 +1,17 @@
+{
+  "name": "reac-solo-project-3",
+  "dependencies": {
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "*",
+    "vite": "latest"
+  },
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}

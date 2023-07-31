@@ -6,6 +6,7 @@ import Answers from "./Answers";
 export default function Questions(props) {
     const [myData, setMyData] = React.useState([]);
     const [showAnswer, setShowAnswer] = React.useState(false);
+    const [questions, setQuestions] = React.useState([]);
 
     const [selection, setSelection] = React.useState(getSelection());
 
@@ -14,15 +15,22 @@ export default function Questions(props) {
         fetch("https://opentdb.com/api.php?amount=5")
             .then(res => res.json())
             .then(data => setMyData(data.results));
+
     }, []);
 
+    React.useEffect(() => {
+        console.log("questions effect")
+        setQuestions(getQuestionsChoices());
+    }, [myData])
+
     function getSelection() {
-        const selectArr = myData.map(data => {
-           return Array(data.incorrect_answers.length + 1).fill(false);
+        const selectArr = questions.map(data => {
+            return Array(data.answers.length).fill(false);
         });
         return selectArr;
+
     }
-    
+
     function checkAnswer() {
         setShowAnswer(true);
     }
@@ -31,34 +39,40 @@ export default function Questions(props) {
     function answerClick(e, index, i) {
         e.preventDefault();
         console.log(i, "is clicked");
-        setSelection(prevSelection => prevSelection.map((ansList, selectIndex) => {
-            return ansList.map((choice, ansIndex) => {
-                if (index === selectIndex && i === ansIndex) {
-                    return !choice;
-                }
-                return choice;
-            })
-        }));
-    }
-    
-    function getChoices() {
-        const cpyData = myData.slice();
-        const choices = cpyData.map(singleObj => [...singleObj.incorrect_answers]);
 
-        return choices;
+        setSelection(prevSelection =>  {
+            let isSelected = prevSelection[index][i];
+            prevSelection[index][i] = !isSelected;
+            return prevSelection;
+        });
+        console.log(selection);
+
     }
 
-    console.log(getChoices());
+    function getQuestionsChoices() {
+        const copyData = myData.slice();
+        console.log(myData);
 
-    const questions = myData.map((quiz, index) => {
-        const choiceElements = quiz.incorrect_answers.map((choice, i) => (
+        const questionsChoices = copyData.map(questionChoices => {
+            const ans = [...questionChoices.incorrect_answers];
+            const correct_ans = questionChoices.correct_answer;
+            const len = ans.length + 1;
+            const randIndex = Math.floor(Math.random() * len);
+            ans.splice(randIndex, 0, correct_ans);
+            return { "question": questionChoices.question, answers: ans }
+        })
+
+        return questionsChoices;
+    }
+
+    const questionElements = questions.map((quiz, index) => {
+        const choiceElements = quiz.answers.map((choice, i) => (
             <ChoiceButton
                 key={i}
                 choice={choice}
                 handleClick={(e) => answerClick(e, index, i)}
-                selected={"none"} />
+                selected={null} />
         ));
-        choiceElements.push(<ChoiceButton choice={quiz.correct_answer} />);
 
         return (
             <div className="question-answer">
@@ -73,19 +87,19 @@ export default function Questions(props) {
 
     return (
         <>
-        {!showAnswer ? 
-            <div className="question--main">
-                {questions}
-                <button
-                    className="check-ans--btn"
-                    onClick={checkAnswer}
-                >
-                    Check Answer
-                </button>
-            </div>
-            :
-            <Answers />
-        }   
+            {!showAnswer ?
+                <div className="question--main">
+                    {questionElements}
+                    <button
+                        className="check-ans--btn"
+                        onClick={checkAnswer}
+                    >
+                        Check Answer
+                    </button>
+                </div>
+                :
+                <Answers />
+            }
         </>
     )
 }

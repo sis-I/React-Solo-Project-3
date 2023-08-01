@@ -1,6 +1,5 @@
 import React from "react"
 import ChoiceButton from "./ChoiceButton";
-import Answers from "./Answers";
 
 
 export default function Questions(props) {
@@ -8,10 +7,7 @@ export default function Questions(props) {
     const [showAnswer, setShowAnswer] = React.useState(false);
     const [questions, setQuestions] = React.useState([]);
 
-    const [selection, setSelection] = React.useState(getSelection());
-
     React.useEffect(() => {
-        console.log("Effect runs");
         fetch("https://opentdb.com/api.php?amount=5")
             .then(res => res.json())
             .then(data => setMyData(data.results));
@@ -19,39 +15,33 @@ export default function Questions(props) {
     }, []);
 
     React.useEffect(() => {
-        console.log("questions effect")
         setQuestions(getQuestionsChoices());
     }, [myData])
-
-    function getSelection() {
-        const selectArr = questions.map(data => {
-            return Array(data.answers.length).fill(false);
-        });
-        return selectArr;
-
-    }
-
+  
     function checkAnswer() {
-        setShowAnswer(true);
+        setShowAnswer(prevShowAns => !prevShowAns);
     }
 
+    function answerClick(question, i) {
+        setQuestions(prevQeustions => prevQeustions.map((prevQuestion) => {
 
-    function answerClick(e, index, i) {
-        e.preventDefault();
-        console.log(i, "is clicked");
+            if (question == prevQuestion.question && 
+                !prevQuestion.selected.every(elem => elem === false)) {
 
-        setSelection(prevSelection =>  {
-            let isSelected = prevSelection[index][i];
-            prevSelection[index][i] = !isSelected;
-            return prevSelection;
-        });
-        console.log(selection);
+                prevQuestion.selected = prevQuestion.selected.map(elem => false)
+            }
 
+            return prevQuestion.question === question ?
+                {...prevQuestion, 
+                    selected: 
+                        prevQuestion.selected.map((isSelected, idx) => i === idx ? !isSelected : isSelected)
+                } :
+                prevQuestion
+        }));
     }
 
     function getQuestionsChoices() {
         const copyData = myData.slice();
-        console.log(myData);
 
         const questionsChoices = copyData.map(questionChoices => {
             const ans = [...questionChoices.incorrect_answers];
@@ -59,25 +49,36 @@ export default function Questions(props) {
             const len = ans.length + 1;
             const randIndex = Math.floor(Math.random() * len);
             ans.splice(randIndex, 0, correct_ans);
-            return { "question": questionChoices.question, answers: ans }
+
+            return { 
+                question: questionChoices.question,
+                answers: ans,
+                selected: Array(ans.length).fill(false)
+            }
         })
 
         return questionsChoices;
     }
 
     const questionElements = questions.map((quiz, index) => {
-        const choiceElements = quiz.answers.map((choice, i) => (
-            <ChoiceButton
-                key={i}
-                choice={choice}
-                handleClick={(e) => answerClick(e, index, i)}
-                selected={null} />
-        ));
+        const choiceElements = quiz.answers.map((choice, i) => {
+            const correct_ans = myData[index].correct_answer;
+            return (
+                <ChoiceButton
+                    key={i}
+                    choice={choice}
+                    handleClick={() => answerClick(quiz.question, i)}
+                    selected={quiz.selected[i]}
+                    showAnswer={showAnswer}
+                    correct_answer={correct_ans === quiz.answers[i]} 
+                />
+            )
+        });
 
         return (
             <div className="question-answer">
                 <h3>{quiz.question}</h3>
-                <ul className="question-choices">
+                <ul className="answer-choices">
                     {choiceElements}
                 </ul>
                 <hr />
@@ -87,19 +88,28 @@ export default function Questions(props) {
 
     return (
         <>
-            {!showAnswer ?
-                <div className="question--main">
-                    {questionElements}
+            <div className="question--main">
+                {questionElements}
+
+                {!showAnswer ?
                     <button
                         className="check-ans--btn"
                         onClick={checkAnswer}
                     >
                         Check Answer
                     </button>
-                </div>
-                :
-                <Answers />
-            }
+                        :
+                    <div className="show-scores">
+                    <h3>You scored 3/5 correct answers</h3>
+                    <button
+                        className="play-again--btn"
+                        onClick={() => props.playAgain()}
+                        >
+                        Play Again
+                    </button>
+                    </div>
+                }
+            </div>
         </>
     )
 }

@@ -17,7 +17,7 @@ function App() {
     <div className="app--background">
       <img className="blobs-top" src={blobsTop} alt="Top Blobs" />
       { showQuestions ? 
-        <Questions  /> : 
+        <Questions playAgain={()=> setShowQuestions(false)} /> : 
         <IntroPage handleClick={getQuestions} /> 
       }
       <img className="blobs-bottom" src={blobsBottom} alt="Bottom Blobs" />

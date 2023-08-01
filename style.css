@@ -24,8 +24,16 @@ body {
 .blobs-bottom {
   max-width: 200px;
   justify-self: self-end;
+}
+
+.intro-blob {
   position: absolute;
   bottom: 0;
+}
+
+.question-blob {
+  position: relative;
+  top: 0;
 }
 
 .intro-main,

@@ -10,17 +10,17 @@ function App() {
   const [showQuestions, setShowQuestions] = React.useState(false);
 
   function getQuestions() {
-    setShowQuestions(true);
+    setShowQuestions(prevShow => !prevShow);
   }
 
   return (
     <div className="app--background">
       <img className="blobs-top" src={blobsTop} alt="Top Blobs" />
       { showQuestions ? 
-        <Questions playAgain={()=> setShowQuestions(false)} /> : 
+        <Questions playAgain={()=> setShowQuestions(prevShow => !prevShow)} /> : 
         <IntroPage handleClick={getQuestions} /> 
       }
-      <img className="blobs-bottom" src={blobsBottom} alt="Bottom Blobs" />
+      <img className= {`blobs-bottom ${showQuestions ?  "question-blob" : "intro-blob"}`} src={blobsBottom} alt="Bottom Blobs" />
     </div>
   )
 }

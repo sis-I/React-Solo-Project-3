@@ -6,6 +6,7 @@ export default function Questions(props) {
     const [myData, setMyData] = React.useState([]);
     const [showAnswer, setShowAnswer] = React.useState(false);
     const [questions, setQuestions] = React.useState([]);
+    const [answered, setAnswered] = React.useState([]);
 
     React.useEffect(() => {
         fetch("https://opentdb.com/api.php?amount=5")
@@ -23,7 +24,7 @@ export default function Questions(props) {
     }
 
     function answerClick(question, i) {
-        setQuestions(prevQeustions => prevQeustions.map((prevQuestion) => {
+        setQuestions(prevQuestions => prevQuestions.map((prevQuestion) => {
 
             if (question == prevQuestion.question && 
                 !prevQuestion.selected.every(elem => elem === false)) {
@@ -38,6 +39,18 @@ export default function Questions(props) {
                 } :
                 prevQuestion
         }));
+
+        const correct_answer = myData.filter(data => data.question === question)[0].correct_answer;
+        const choosedAnswer = questions.filter(q => q.question === question)[0].answers[i];
+        setAnswered(oldAnswers => {
+            const isAnswer = oldAnswers.includes(correct_answer);
+            if (correct_answer === choosedAnswer && !isAnswer) {
+                oldAnswers.push(choosedAnswer);
+            } else if (correct_answer !== choosedAnswer && isAnswer) {
+                oldAnswers = oldAnswers.filter(ans => ans !== correct_answer)
+            }
+            return oldAnswers;
+        })
     }
 
     function getQuestionsChoices() {
@@ -100,10 +113,10 @@ export default function Questions(props) {
                     </button>
                         :
                     <div className="show-scores">
-                    <h3>You scored 3/5 correct answers</h3>
+                    <h3>{`You scored ${answered.length}/${questions.length} correct answers`}</h3>
                     <button
                         className="play-again--btn"
-                        onClick={() => props.playAgain()}
+                        onClick={props.playAgain}
                         >
                         Play Again
                     </button>
@@ -113,3 +126,4 @@ export default function Questions(props) {
         </>
     )
 }
+

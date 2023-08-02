@@ -80,7 +80,7 @@ export default function Questions(props) {
                 <ChoiceButton
                     key={i}
                     choice={choice}
-                    handleClick={() => answerClick(quiz.question, i)}
+                    handleClick={() => !showAnswer && answerClick(quiz.question, i)}
                     selected={quiz.selected[i]}
                     showAnswer={showAnswer}
                     correct_answer={correct_ans === quiz.answers[i]} 
@@ -90,7 +90,7 @@ export default function Questions(props) {
 
         return (
             <div className="question-answer">
-                <h3>{quiz.question}</h3>
+                <h3>{`${quiz.question}`}</h3>
                 <ul className="answer-choices">
                     {choiceElements}
                 </ul>

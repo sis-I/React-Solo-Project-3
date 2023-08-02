@@ -1,4 +1,5 @@
 import React from "react"
+import {nanoid} from "nanoid";
 import ChoiceButton from "./ChoiceButton";
 
 
@@ -66,7 +67,8 @@ export default function Questions(props) {
             return { 
                 question: questionChoices.question,
                 answers: ans,
-                selected: Array(ans.length).fill(false)
+                selected: Array(ans.length).fill(false),
+                id: nanoid()
             }
         })
 
@@ -89,7 +91,7 @@ export default function Questions(props) {
         });
 
         return (
-            <div className="question-answer">
+            <div key={quiz.id} className="question-answer">
                 <h3 dangerouslySetInnerHTML={{__html: quiz.question}}></h3>
                 <ul className="answer-choices">
                     {choiceElements}

@@ -21,13 +21,13 @@ function ChoiceButton(props) {
         }
     }
 
+    const choiceMarkup = {__html: props.choice}
     return (
         <button className="choice--btn"
             onClick={props.handleClick}
             style={buttonStyle}
-        >
-            {props.choice}
-            
+            dangerouslySetInnerHTML={choiceMarkup}
+        >           
         </button>
     )
 }

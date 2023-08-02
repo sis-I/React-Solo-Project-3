@@ -90,7 +90,7 @@ export default function Questions(props) {
 
         return (
             <div className="question-answer">
-                <h3>{`${quiz.question}`}</h3>
+                <h3 dangerouslySetInnerHTML={{__html: quiz.question}}></h3>
                 <ul className="answer-choices">
                     {choiceElements}
                 </ul>

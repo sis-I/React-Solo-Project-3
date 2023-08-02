@@ -32,6 +32,7 @@ body {
 }
 
 .question-blob {
+  width: 150px;
   position: relative;
   top: 0;
 }
@@ -43,7 +44,7 @@ body {
   justify-content: center;
   align-items: center;
   color: #293264;
-  z-index: 1000;
+  z-index: 1;
 }
 
 .intro--title {
@@ -68,8 +69,8 @@ body {
   cursor: pointer;
 }
 
-.intro--btn {
-  margin-bottom: 26%;
+.check-ans--btn {
+  margin-top: 20px;
 }
 
 .intro--btn:focus {
@@ -83,6 +84,7 @@ body {
 }
 
 .question--main {
+  margin: -10% auto;
   color: #293264;
 }
 
@@ -96,20 +98,18 @@ body {
 .answer-choices {
   list-style-type: none;
   display: flex;
+  gap:10px;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
 
 .choice--btn {
   min-width: 6rem;
-  height: auto;
   padding: 4px;
-  margin-bottom: 5px;
-  margin-right: 1rem;
   border: 1px solid #4D5B9E;
   border-radius: 8px;
   color: #293264;
-  font-size: .8rem;
+  font-size: 0.9rem;
   display: flex;
   flex-direction: row;
   align-items: center;

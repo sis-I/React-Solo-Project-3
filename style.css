@@ -145,3 +145,10 @@ hr {
   gap: 10px;
   margin: 10px auto;
 }
+
+@media (max-width: 480px) {
+  .check-ans--btn, .play-again--btn {
+    position: absolute;
+    top: 1.2vh;
+  }
+}

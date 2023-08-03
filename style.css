@@ -65,12 +65,12 @@ body {
 .intro--btn,
 .check-ans--btn,
 .play-again--btn {
-  width: 200px;
-  height: 52px;
+  width: 40vw;
+  height: 40px;
   background-color: #4D5B9E;
   color: white;
   border: none;
-  font-size: 1rem;
+  font-size: 3vw;
   border-radius: 15px;
   cursor: pointer;
 }
@@ -91,7 +91,7 @@ body {
 
 .question--main {
   margin: -10% auto;
-  font-size: 2vw;
+  font-size: 3vw;
   color: #293264;
 }
 
@@ -116,7 +116,7 @@ body {
   border: 1px solid #4D5B9E;
   border-radius: 8px;
   color: #293264;
-  font-size: 2vw;
+  font-size: 2.5vw;
   display: flex;
   flex-direction: row;
   align-items: center;

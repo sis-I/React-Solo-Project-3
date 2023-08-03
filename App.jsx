@@ -15,12 +15,12 @@ function App() {
 
   return (
     <div className="app--background">
-      <img className="blobs-top" src={blobsTop} alt="Top Blobs" />
+      <img className={`blobs-top ${ showQuestions && "question-tblob"}`} src={blobsTop} alt="Top Blobs" />
       { showQuestions ? 
         <Questions playAgain={()=> setShowQuestions(prevShow => !prevShow)} /> : 
         <IntroPage handleClick={getQuestions} /> 
       }
-      <img className= {`blobs-bottom ${showQuestions ?  "question-blob" : "intro-blob"}`} src={blobsBottom} alt="Bottom Blobs" />
+      <img className= {`blobs-bottom ${showQuestions ?  "question-bblob" : "intro-bblob"}`} src={blobsBottom} alt="Bottom Blobs" />
     </div>
   )
 }

@@ -7,7 +7,7 @@ body {
   font-family: Poppins, sans-serif;
   background-color: #F5F7FB;
   padding: 0;
-  font-size: 3vw;
+  font-size: 5vw;
 }
 
 .app--background {
@@ -44,7 +44,7 @@ body {
 
 .intro-main,
 .question--main {
-  max-width: 768px;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -91,7 +91,7 @@ body {
 
 .question--main {
   margin: -10% auto;
-  font-size: 3vw;
+  font-size: 3.5vw;
   color: #293264;
 }
 
@@ -116,7 +116,7 @@ body {
   border: 1px solid #4D5B9E;
   border-radius: 8px;
   color: #293264;
-  font-size: 2.5vw;
+  font-size: 2.8vw;
   display: flex;
   flex-direction: row;
   align-items: center;

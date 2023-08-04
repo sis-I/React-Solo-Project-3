@@ -7,6 +7,7 @@ body {
   font-family: Poppins, sans-serif;
   background-color: #F5F7FB;
   padding: 0;
+  max-height: 100vh;
 }
 
 .app--background {
@@ -37,19 +38,17 @@ body {
 
 .question-bblob {
   width: 100px;
-  ;
-  position: relative;
-  top: 0;
+  position: absolute;
+  bottom: 0;
 }
 
 .intro-main,
 .question--main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   color: #293264;
-  z-index: 1;
+  /* z-index: 1; */
 }
 
 .intro--title {
@@ -65,17 +64,13 @@ body {
 .check-ans--btn,
 .play-again--btn {
   width: 40vw;
-  height: 48px;
+  height: 8vh;
   background-color: #4D5B9E;
   color: white;
   font-size: 1.2rem;
   border: none;
   border-radius: 15px;
   cursor: pointer;
-}
-
-.check-ans--btn {
-  margin-top: 20px;
 }
 
 .intro--btn:focus {
@@ -89,16 +84,31 @@ body {
 }
 
 .question--main {
-  margin: -10% 40px;
+  max-width: 600px;
+  max-height: 80vh;
+  margin: -10vh auto;
+  overflow-x: hidden;
+  overflow-y: scroll;
   color: #293264;
 }
 
-/* .question-answer {
+.question-answer {
   align-self: flex-start;
-  margin-top: -20px;
-  margin-left: 40px;
+  /* margin-left: 40px; */
   max-width: 80vw;
-} */
+}
+
+.btn--container {
+  position: fixed;
+  bottom: 2vh;
+  display: flex;
+  z-index: 1;
+}
+
+.question-answer h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
 
 .answer-choices {
   list-style-type: none;
@@ -114,7 +124,7 @@ body {
   border: 1px solid #4D5B9E;
   border-radius: 8px;
   color: #293264;
-  font-size: 1rem;
+  /* font-size: 1rem; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -127,34 +137,22 @@ body {
 }
 
 .check-ans--btn {
-  margin-bottom: 10px;
-  position: relative;
-  top: 0px;
+  margin: 0 30vw;
 }
 
 hr {
   border: 1px solid #DBDEF0;
-  width: 100%;
-  /* margin-bottom: 10px; */
+  min-width: 100%;
 }
 
 .show-scores {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: nowrap;
+  color: #293264;
   align-items: center;
-  gap: 10px;
-  margin: 10px auto;
+  gap: 2vh;
+  margin: 0 10vw;
 }
-/* 
-@media (max-width: 480px) {
 
-  .check-ans--btn,
-  .play-again--btn {
-    position: absolute;
-    top: 2vh;
-  }
-  .check-ans--btn {
-    margin-top: 0;
-  }
-} */
+
+

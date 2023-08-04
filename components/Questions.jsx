@@ -105,6 +105,8 @@ export default function Questions(props) {
         <>
             <div className="question--main">
                 {questionElements}
+            </div>
+            <div className="btn--container">
 
                 {!showAnswer ?
                     <button
@@ -115,7 +117,7 @@ export default function Questions(props) {
                     </button>
                         :
                     <div className="show-scores">
-                    <h3>{`You scored ${answered.length}/${questions.length} correct answers`}</h3>
+                    <h3>You scored <span style={{color: answered.length < 3 && "red"}}>{`${answered.length}/ ${questions.length}`}</span> correct answers</h3>
                     <button
                         className="play-again--btn"
                         onClick={props.playAgain}

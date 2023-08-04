@@ -7,6 +7,9 @@ This is a quiz, that will then pull some trivia questions from a database and di
 
   `UI Design is copied from Figma Design`
 
+link:  https://www.figma.com/file/E9S5iPcm10f0RIHK8mCqKL/Quizzical-App?node-id=0%3A1
+    `Questions generated on OPENTDB.COM API `
+    Fetch requesting questions data from API: https://opentdb.com/api_config.php
 ## Setup manually by me using vite
 
 In the project directory, you can run:
